@@ -1,12 +1,18 @@
+require('dotenv').config();
 const express = require('express');
-const app = express();
+const mongoose = require('mongoose');
 
-const PORT = 5000;
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('✅ MongoDB connected'))
+  .catch((err) => console.log('❌ MongoDB connection error:', err));
 
 app.get('/', (req, res) => {
-    res.send('Soo this is the Backend!');
+  res.send('Hello from the backend! 🚀');
 });
 
 app.listen(PORT, () => {
-    console.log('Server is there on http://localhost:${PORT}');
+  console.log(`Server running on http://localhost:${PORT}`);
 });
